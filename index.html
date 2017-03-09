@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Printer XML2CSV Data Converter</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Libraries -->
+        <script src="bower_components/file-saver/FileSaver.js" type="tex/javascript"></script>
+        <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+        <script src="bower_components/materialize/bin/materialize.js" type="tex/javascript"></script>
+        <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css">
+
+        <!-- Mine -->
+        <script src="js/main.js" type="text/javascript"></script>
+    </head>
+    <body> 
+
+        <nav>
+            <div class="nav-wrapper blue">
+                <a href="#" class="brand-logo">XML2CSV</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <input type="file" id="fileInput" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button type="button" class="btn blue" id="convertButton">Convert XML</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="progress blue lighten-5">
+                        <div class="indeterminate blue"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button type="button" class="btn blue" id="saveButton">Save CSV</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

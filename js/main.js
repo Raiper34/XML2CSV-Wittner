@@ -51,26 +51,47 @@ function xmlToCsv()
                 return;
             }
             
-            $(contents).find("kmloginfo\\:print_job_log").each(function () { //foreach print section
+            $(contents).find("kmloginfo\\:print_job_log").each(function () { //foreach print section print job log printer
                 var jobKind = $(this).find("kmloginfo\\:job_kind").text();
                 var userName = $(this).find("kmloginfo\\:user_name").text();
                 var printColorMode = $(this).find("kmloginfo\\:print_color_mode").text();
                 var sum = $(this).find("kmloginfo\\:complete_pages").text();
-                if (typeof data[jobKind + userName + printColorMode] === 'undefined') //if it is new index
+                if (typeof data[userName + jobKind + printColorMode] === 'undefined') //if it is new index
                 {
-                    data[jobKind + userName + printColorMode] = new Array();
-                    data[jobKind + userName + printColorMode]['jobKind'] = jobKind;
-                    data[jobKind + userName + printColorMode]['userName'] = userName;
-                    data[jobKind + userName + printColorMode]['printColorMode'] = printColorMode;
-                    data[jobKind + userName + printColorMode]['sum'] = parseInt(sum);
-                    keys.push(jobKind + userName + printColorMode);
+                    data[userName + jobKind + printColorMode] = new Array();
+                    data[userName + jobKind + printColorMode]['jobKind'] = jobKind;
+                    data[userName + jobKind + printColorMode]['userName'] = userName;
+                    data[userName + jobKind + printColorMode]['printColorMode'] = printColorMode;
+                    data[userName + jobKind + printColorMode]['sum'] = parseInt(sum);
+                    keys.push(userName + jobKind + printColorMode);
                 } 
                 else //it is old index, we know this username jobkind and printcoormode so we only count papers to sum
                 {
-                    data[jobKind + userName + printColorMode]['sum'] += parseInt(sum);
+                    data[userName + jobKind + printColorMode]['sum'] += parseInt(sum);
                 }
             });
             
+            $(contents).find("kmloginfo\\:send_job_log").each(function () { //foreach print section print send log scanner
+                var jobKind = $(this).find("kmloginfo\\:job_kind").text();
+                var userName = $(this).find("kmloginfo\\:user_name").text();
+                var printColorMode = $(this).find("kmloginfo\\:scan_color_mode").text();
+                var sum = 1;
+                if (typeof data[userName + jobKind + printColorMode] === 'undefined') //if it is new index
+                {
+                    data[userName + jobKind + printColorMode] = new Array();
+                    data[userName + jobKind + printColorMode]['jobKind'] = jobKind;
+                    data[userName + jobKind + printColorMode]['userName'] = userName;
+                    data[userName + jobKind + printColorMode]['printColorMode'] = printColorMode;
+                    data[userName + jobKind + printColorMode]['sum'] = parseInt(sum);
+                    keys.push(userName + jobKind + printColorMode);
+                } 
+                else //it is old index, we know this username jobkind and printcoormode so we only count papers to sum
+                {
+                    data[userName + jobKind + printColorMode]['sum'] += parseInt(sum);
+                }
+            });
+            
+            keys.sort();
             var csvString = "Jméno;Job_kind;Print_color_mode;Celkem\n";
             keys.forEach(function (element) { //create string from obtained data
                 csvString += data[element]['userName'] + ";";
